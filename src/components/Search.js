@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import BooksGrid from './BooksGrid.js';
 
 const Search = (props) => (
     <div className="search-books">
         <div className="search-books-bar">
-            <a className="close-search" onClick={() => props.onSearchClicked(false)}>Close</a>
+            <Link to="/" className="close-search">Close</Link>
             <div className="search-books-input-wrapper">
                 <input type="text" placeholder="Search by title or author"/>
             </div>
