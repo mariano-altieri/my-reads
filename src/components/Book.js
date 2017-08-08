@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import SHELVES from '../constants/Shelves';
 
 class BookState extends Component {
     handleChange = (e) => {
@@ -12,9 +13,9 @@ class BookState extends Component {
             <div className="book-shelf-changer">
                 <select value={this.props.book.shelf || 'none'} onChange={this.handleChange}>
                     <option value="" disabled>Move to...</option>
-                    <option value="currentlyReading">Currently Reading</option>
-                    <option value="wantToRead">Want to Read</option>
-                    <option value="read">Read</option>
+                    {SHELVES.map((cat, index) => (
+                        <option key={index} value={cat.value}>{cat.label}</option>
+                    ))}
                     <option value="none">None</option>
                 </select>
             </div>

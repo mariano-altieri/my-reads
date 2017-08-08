@@ -20,6 +20,12 @@ class Search extends Component {
     }
 
     componentWillMount() {
+        /*
+         * Note that we don't actually perform a search here,
+         * we're just wrapping the method with a debounce function
+         * for future usage.
+         */
+
         this.doSearch = debounce(400, this.doSearch);
     }
 

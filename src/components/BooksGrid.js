@@ -8,11 +8,12 @@ class BooksGrid extends Component {
     }
 
     render() {
-        const filteredBooks = this.filterBooksByShelf(this.props.filter, this.props.books);
+        const { filter, books, onBookShelfChanged } = this.props;
+        const filteredBooks = this.filterBooksByShelf(filter, books);
 
         return (
             <ol className="books-grid">
-                {filteredBooks.map( (book, index) => <Book key={index} data={book} onBookShelfChanged={this.props.onBookShelfChanged} /> )}
+                {filteredBooks.map( (book, index) => <Book key={index} data={book} onBookShelfChanged={onBookShelfChanged} /> )}
             </ol>
         );
     }

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Bookshelf from './Bookshelf';
 
+import SHELVES from '../constants/Shelves';
+
 class Main extends Component {
     componentDidMount() {
         this.props.fetchMyReads();
@@ -9,6 +11,17 @@ class Main extends Component {
 
     render() {
         const { loading, updating, myReads, updateBook } = this.props;
+
+        const bookshelves = SHELVES.map((cat, index) => (
+            <Bookshelf
+                key={index}
+                name={cat.label}
+                filter={cat.value}
+                books={myReads}
+                onBookShelfChanged={updateBook}
+                loading={loading}
+            />
+        ));
 
         return (
             <div className="list-books">
@@ -21,10 +34,7 @@ class Main extends Component {
                     ) : (
                         <div>
                             {updating && (<p>Updating...</p>)}
-
-                            <Bookshelf name="Currently Reading" filter="currentlyReading" books={myReads} onBookShelfChanged={updateBook} />
-                            <Bookshelf name="Want to Read" filter="wantToRead" books={myReads} onBookShelfChanged={updateBook} />
-                            <Bookshelf name="Read" filter="read" books={myReads} onBookShelfChanged={updateBook} />
+                            {bookshelves}
                         </div>
                     )}
                 </div>
