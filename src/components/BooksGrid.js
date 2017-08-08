@@ -12,7 +12,7 @@ class BooksGrid extends Component {
 
         return (
             <ol className="books-grid">
-                {filteredBooks.map( (book, index) => <Book key={index} data={book} /> )}
+                {filteredBooks.map( (book, index) => <Book key={index} data={book} onBookShelfChanged={this.props.onBookShelfChanged} /> )}
             </ol>
         );
     }

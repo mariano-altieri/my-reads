@@ -9,15 +9,29 @@ class Main extends Component {
         books: [],
     }
 
-    componentDidMount() {
+    fetchAllBooks = () => {
         this.setState({ loading: true });
 
-        BooksAPI.getAll().then((results) => {
+        BooksAPI.getAll().then((books) => {
             this.setState({
-                books: results,
+                books,
                 loading: false
             });
         });
+    }
+
+    updateBook = (book, shelf) => {
+        BooksAPI.update(book, shelf).then( () => {
+            this.setState({
+                books: this.state.books.map( b => {
+                    return (b.id !== book.id) ? b : { ...book, shelf };
+                })
+            });
+        });
+    }
+
+    componentDidMount() {
+        this.fetchAllBooks();
     }
 
     render() {
@@ -31,9 +45,9 @@ class Main extends Component {
                         <div>Loading books...</div>
                     ) : (
                         <div>
-                            <BookShelf name="Currently Reading" filter="currentlyReading" books={this.state.books} />
-                            <BookShelf name="Want to Read" filter="wantToRead" books={this.state.books} />
-                            <BookShelf name="Read" filter="read" books={this.state.books} />
+                            <BookShelf name="Currently Reading" filter="currentlyReading" books={this.state.books} onBookShelfChanged={this.updateBook} />
+                            <BookShelf name="Want to Read" filter="wantToRead" books={this.state.books} onBookShelfChanged={this.updateBook} />
+                            <BookShelf name="Read" filter="read" books={this.state.books} onBookShelfChanged={this.updateBook} />
                         </div>
                     )}
                 </div>
