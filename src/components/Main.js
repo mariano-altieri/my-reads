@@ -6,6 +6,7 @@ import * as BooksAPI from '../utils/BooksAPI';
 class Main extends Component {
     state = {
         loading: false,
+        updating: false,
         books: [],
     }
 
@@ -21,8 +22,11 @@ class Main extends Component {
     }
 
     updateBook = (book, shelf) => {
+        this.setState({ updating: true });
+
         BooksAPI.update(book, shelf).then( () => {
             this.setState({
+                updating: false,
                 books: this.state.books.map( b => {
                     return (b.id !== book.id) ? b : { ...book, shelf };
                 })
@@ -42,9 +46,11 @@ class Main extends Component {
                 </div>
                 <div className="list-books-content">
                     { this.state.loading ? (
-                        <div>Loading books...</div>
+                        <div><p>Loading books...</p></div>
                     ) : (
                         <div>
+                            {this.state.updating && (<p>Updating...</p>)}
+
                             <BookShelf name="Currently Reading" filter="currentlyReading" books={this.state.books} onBookShelfChanged={this.updateBook} />
                             <BookShelf name="Want to Read" filter="wantToRead" books={this.state.books} onBookShelfChanged={this.updateBook} />
                             <BookShelf name="Read" filter="read" books={this.state.books} onBookShelfChanged={this.updateBook} />
