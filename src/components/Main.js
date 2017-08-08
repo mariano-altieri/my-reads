@@ -6,14 +6,7 @@ import * as BooksAPI from '../utils/BooksAPI';
 class Main extends Component {
     state = {
         loading: false,
-        currentlyReading: [],
-        wantToRead: [],
-        read: []
-    }
-
-    // Should return a new array = pure function
-    fetchBookByShelf = (shelf = '', books = []) => {
-        return books.filter(book => book.shelf === shelf);
+        books: [],
     }
 
     componentDidMount() {
@@ -21,9 +14,7 @@ class Main extends Component {
 
         BooksAPI.getAll().then((results) => {
             this.setState({
-                currentlyReading: this.fetchBookByShelf('currentlyReading', results),
-                wantToRead: this.fetchBookByShelf('wantToRead', results),
-                read: this.fetchBookByShelf('read', results),
+                books: results,
                 loading: false
             });
         });
@@ -40,9 +31,9 @@ class Main extends Component {
                         <div>Loading books...</div>
                     ) : (
                         <div>
-                            <BookShelf name="Currently Reading" books={this.state.currentlyReading} />
-                            <BookShelf name="Want to Read" books={this.state.wantToRead} />
-                            <BookShelf name="Read" books={this.state.read} />
+                            <BookShelf name="Currently Reading" filter="currentlyReading" books={this.state.books} />
+                            <BookShelf name="Want to Read" filter="wantToRead" books={this.state.books} />
+                            <BookShelf name="Read" filter="read" books={this.state.books} />
                         </div>
                     )}
                 </div>
