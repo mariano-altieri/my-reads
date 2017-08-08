@@ -10,7 +10,7 @@ class BookState extends Component {
      render() {
         return (
             <div className="book-shelf-changer">
-                <select value={this.props.book.shelf} onChange={this.handleChange}>
+                <select value={this.props.book.shelf || 'none'} onChange={this.handleChange}>
                     <option value="none" disabled>Move to...</option>
                     <option value="currentlyReading">Currently Reading</option>
                     <option value="wantToRead">Want to Read</option>
@@ -22,17 +22,28 @@ class BookState extends Component {
     }
 }
 
-const Book = (props) => (
-    <li>
-        <div className="book">
-            <div className="book-top">
-                <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${props.data.imageLinks.thumbnail})` }}></div>
-                <BookState book={props.data} onBookShelfChanged={props.onBookShelfChanged} />
-            </div>
-            <div className="book-title">{props.data.title}</div>
-            <div className="book-authors">{props.data.authors[0]}</div>
-        </div>
-    </li>
-);
+class Book extends Component {
+    render() {
+        const { title, authors = [], imageLinks } = this.props.data;
+        const thumbnail = imageLinks && imageLinks.thumbnail;
+
+        return (
+            <li>
+                <div className="book">
+                    <div className="book-top">
+                        <div className="book-cover" style={{
+                            width: 128,
+                            height: 193,
+                            backgroundImage: `url(${thumbnail})` }}
+                        ></div>
+                        <BookState book={this.props.data} onBookShelfChanged={this.props.onBookShelfChanged} />
+                    </div>
+                    <div className="book-title">{title}</div>
+                    <div className="book-authors">{authors[0]}</div>
+                </div>
+            </li>
+        );
+    }
+}
 
 export default Book;

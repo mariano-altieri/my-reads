@@ -10,10 +10,10 @@ class Main extends Component {
         books: [],
     }
 
-    fetchAllBooks = () => {
+    fetchMyBooks = () => {
         this.setState({ loading: true });
 
-        BooksAPI.getAll().then((books) => {
+        BooksAPI.getAll().then( books => {
             this.setState({
                 books,
                 loading: false
@@ -35,7 +35,7 @@ class Main extends Component {
     }
 
     componentDidMount() {
-        this.fetchAllBooks();
+        this.fetchMyBooks();
     }
 
     render() {

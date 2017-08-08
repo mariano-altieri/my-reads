@@ -3,8 +3,8 @@ import Book from './Book.js';
 
 class BooksGrid extends Component {
     // Should return a new array, in other words a pure function
-    filterBooksByShelf = (filter = '', books = []) => {
-        return books.filter(book => book.shelf === filter);
+    filterBooksByShelf = (filter = 'all', books = []) => {
+        return books.filter(book => filter === 'all' ? true : book.shelf === filter);
     }
 
     render() {
