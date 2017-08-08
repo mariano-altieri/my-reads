@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import './App.css';
 
-import Main from './components/Main';
+import MyReads from './components/MyReads';
 import Search from './components/Search';
 
-class BooksApp extends React.Component {
+class BooksApp extends Component {
     render() {
         return (
             <div className="app">
-                <Route path="/" exact component={Main} />
+                <Route path="/" exact component={MyReads} />
                 <Route path="/search" component={Search} />
             </div>
         )
