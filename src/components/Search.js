@@ -25,7 +25,6 @@ class Search extends Component {
          * we're just wrapping the method with a debounce function
          * for future usage.
          */
-
         this.doSearch = debounce(400, this.doSearch);
     }
 
@@ -51,19 +50,8 @@ class Search extends Component {
                     </div>
                 </div>
                 <div className="search-books-results">
-                    { loading ? (
-                        <div><p>Loading books...</p></div>
-                    ) : (
-                        <div>
-                            {updating && (<p>Updating...</p>)}
-
-                            {!searchedBooks.length ? (
-                                <p>No results.</p>
-                            ) : (
-                                <BooksGrid filter='all' books={searchedBooks} onBookShelfChanged={updateBook} />
-                            )}
-                        </div>
-                    )}
+                    {updating && (<p>Updating...</p>)}
+                    <BooksGrid filter='all' loading={loading} books={searchedBooks} onBookShelfChanged={updateBook} />
                 </div>
             </div>
         );
