@@ -1,29 +1,30 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Bookshelf from './Bookshelf';
-import BookStore from './BookStore';
 
-class Main extends BookStore {
+class Main extends Component {
     componentDidMount() {
-        this.fetchMyReads();
+        this.props.fetchMyReads();
     }
 
     render() {
+        const { loading, updating, myReads, updateBook } = this.props;
+
         return (
             <div className="list-books">
                 <div className="list-books-title">
                     <h1>MyReads</h1>
                 </div>
                 <div className="list-books-content">
-                    { this.state.loading ? (
+                    { loading ? (
                         <div><p>Loading books...</p></div>
                     ) : (
                         <div>
-                            {this.state.updating && (<p>Updating...</p>)}
+                            {updating && (<p>Updating...</p>)}
 
-                            <Bookshelf name="Currently Reading" filter="currentlyReading" books={this.state.myReads} onBookShelfChanged={this.updateBook} />
-                            <Bookshelf name="Want to Read" filter="wantToRead" books={this.state.myReads} onBookShelfChanged={this.updateBook} />
-                            <Bookshelf name="Read" filter="read" books={this.state.myReads} onBookShelfChanged={this.updateBook} />
+                            <Bookshelf name="Currently Reading" filter="currentlyReading" books={myReads} onBookShelfChanged={updateBook} />
+                            <Bookshelf name="Want to Read" filter="wantToRead" books={myReads} onBookShelfChanged={updateBook} />
+                            <Bookshelf name="Read" filter="read" books={myReads} onBookShelfChanged={updateBook} />
                         </div>
                     )}
                 </div>
