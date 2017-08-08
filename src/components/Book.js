@@ -11,7 +11,7 @@ class BookState extends Component {
         return (
             <div className="book-shelf-changer">
                 <select value={this.props.book.shelf || 'none'} onChange={this.handleChange}>
-                    <option value="none" disabled>Move to...</option>
+                    <option value="" disabled>Move to...</option>
                     <option value="currentlyReading">Currently Reading</option>
                     <option value="wantToRead">Want to Read</option>
                     <option value="read">Read</option>
@@ -24,7 +24,8 @@ class BookState extends Component {
 
 class Book extends Component {
     render() {
-        const { title, authors = [], imageLinks } = this.props.data;
+        const data = this.props.data;
+        const { title, authors = [], imageLinks } = data;
         const thumbnail = imageLinks && imageLinks.thumbnail;
 
         return (
@@ -36,7 +37,7 @@ class Book extends Component {
                             height: 193,
                             backgroundImage: `url(${thumbnail})` }}
                         ></div>
-                        <BookState book={this.props.data} onBookShelfChanged={this.props.onBookShelfChanged} />
+                        <BookState book={data} onBookShelfChanged={this.props.onBookShelfChanged} />
                     </div>
                     <div className="book-title">{title}</div>
                     <div className="book-authors">{authors[0]}</div>

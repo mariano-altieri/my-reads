@@ -14,8 +14,6 @@ class Search extends BookStore {
     }
 
     render() {
-        const searchedBooks = this.state.searchedBooks;
-
         return (
             <div className="search-books">
                 <div className="search-books-bar">
@@ -38,10 +36,10 @@ class Search extends BookStore {
                         <div>
                             {this.state.updating && (<p>Updating...</p>)}
 
-                            {!searchedBooks.length ? (
+                            {!this.state.searchedBooks.length ? (
                                 <p>No results.</p>
                             ) : (
-                                <BooksGrid filter='all' books={searchedBooks} onBookShelfChanged={this.updateBook} />
+                                <BooksGrid filter='all' books={this.state.searchedBooks} onBookShelfChanged={this.updateBook} />
                             )}
                         </div>
                     )}

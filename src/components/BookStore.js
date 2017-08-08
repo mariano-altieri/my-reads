@@ -16,15 +16,18 @@ class BookStore extends Component {
         BooksAPI.getAll().then( myReads => this.setState({ myReads, loading: false }));
     }
 
+    updateBookCollection = (stateName, book, shelf) => {
+        return this.state[stateName].map( b => (b.id !== book.id) ? b : { ...book, shelf });
+    }
+
     updateBook = (book, shelf) => {
         this.setState({ updating: true });
 
         BooksAPI.update(book, shelf).then( () => {
             this.setState({
                 updating: false,
-                myReads: this.state.myReads.map( b => {
-                    return (b.id !== book.id) ? b : { ...book, shelf };
-                })
+                myReads: this.updateBookCollection('myReads', book, shelf),
+                searchedBooks: this.updateBookCollection('searchedBooks', book, shelf)
             });
         });
     }
