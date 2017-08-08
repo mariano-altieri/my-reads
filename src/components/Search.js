@@ -30,6 +30,10 @@ class Search extends Component {
 
     componentDidMount() {
         this.props.fetchMyReads(false);
+        this.textInput.focus();
+
+        // Resetting the component for the first render
+        this.props.searchBooks('', this.state.maxResults);
     }
 
     render() {
@@ -46,6 +50,7 @@ class Search extends Component {
                             placeholder="Search by title or author"
                             value={query}
                             onChange={this.handleChange}
+                            ref={input => this.textInput = input}
                         />
                     </div>
                 </div>
