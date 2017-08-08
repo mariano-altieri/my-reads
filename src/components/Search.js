@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { debounce } from 'throttle-debounce';
 import BooksGrid from './BooksGrid.js';
 
 class Search extends Component {
@@ -11,7 +12,15 @@ class Search extends Component {
     handleChange = (e) => {
         const query = (e.target.value).replace(/^\s+/, '');
         this.setState({ query });
+        this.doSearch(query);
+    }
+
+    doSearch = (query) => {
         this.props.searchBooks(query, this.state.maxResults);
+    }
+
+    componentWillMount() {
+        this.doSearch = debounce(400, this.doSearch);
     }
 
     componentDidMount() {
