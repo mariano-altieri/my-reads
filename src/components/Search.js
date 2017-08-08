@@ -11,7 +11,7 @@ const Search = (props) => (
             </div>
         </div>
         <div className="search-books-results">
-            <BooksGrid />
+            {/*<BooksGrid />*/}
         </div>
     </div>
 );

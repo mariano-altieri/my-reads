@@ -3,7 +3,7 @@ import Book from './Book.js';
 
 const BooksGrid = (props) => (
     <ol className="books-grid">
-        <Book />
+        {props.books.map( (book, index) => <Book key={index} data={book} /> )}
     </ol>
 );
 
