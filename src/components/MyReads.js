@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import BookShelf from './BookShelf';
+import Bookshelf from './Bookshelf';
 import BookStore from './BookStore';
 
 class Main extends BookStore {
@@ -21,9 +21,9 @@ class Main extends BookStore {
                         <div>
                             {this.state.updating && (<p>Updating...</p>)}
 
-                            <BookShelf name="Currently Reading" filter="currentlyReading" books={this.state.myReads} onBookShelfChanged={this.updateBook} />
-                            <BookShelf name="Want to Read" filter="wantToRead" books={this.state.myReads} onBookShelfChanged={this.updateBook} />
-                            <BookShelf name="Read" filter="read" books={this.state.myReads} onBookShelfChanged={this.updateBook} />
+                            <Bookshelf name="Currently Reading" filter="currentlyReading" books={this.state.myReads} onBookShelfChanged={this.updateBook} />
+                            <Bookshelf name="Want to Read" filter="wantToRead" books={this.state.myReads} onBookShelfChanged={this.updateBook} />
+                            <Bookshelf name="Read" filter="read" books={this.state.myReads} onBookShelfChanged={this.updateBook} />
                         </div>
                     )}
                 </div>
