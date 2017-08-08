@@ -21,8 +21,8 @@ const Book = (props) => (
                 <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${props.data.imageLinks.thumbnail})` }}></div>
                 <BookState shelf={props.data.shelf} />
             </div>
-            <div className="book-title">To Kill a Mockingbird</div>
-            <div className="book-authors">Harper Lee</div>
+            <div className="book-title">{props.data.title}</div>
+            <div className="book-authors">{props.data.authors[0]}</div>
         </div>
     </li>
 );
