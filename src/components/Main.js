@@ -1,41 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import BookShelf from './BookShelf.js';
-import * as BooksAPI from '../utils/BooksAPI';
+import BookShelf from './BookShelf';
+import BookStore from './BookStore';
 
-class Main extends Component {
-    state = {
-        loading: false,
-        updating: false,
-        books: [],
-    }
-
-    fetchMyBooks = () => {
-        this.setState({ loading: true });
-
-        BooksAPI.getAll().then( books => {
-            this.setState({
-                books,
-                loading: false
-            });
-        });
-    }
-
-    updateBook = (book, shelf) => {
-        this.setState({ updating: true });
-
-        BooksAPI.update(book, shelf).then( () => {
-            this.setState({
-                updating: false,
-                books: this.state.books.map( b => {
-                    return (b.id !== book.id) ? b : { ...book, shelf };
-                })
-            });
-        });
-    }
-
+class Main extends BookStore {
     componentDidMount() {
-        this.fetchMyBooks();
+        this.fetchMyReads();
     }
 
     render() {
@@ -51,9 +21,9 @@ class Main extends Component {
                         <div>
                             {this.state.updating && (<p>Updating...</p>)}
 
-                            <BookShelf name="Currently Reading" filter="currentlyReading" books={this.state.books} onBookShelfChanged={this.updateBook} />
-                            <BookShelf name="Want to Read" filter="wantToRead" books={this.state.books} onBookShelfChanged={this.updateBook} />
-                            <BookShelf name="Read" filter="read" books={this.state.books} onBookShelfChanged={this.updateBook} />
+                            <BookShelf name="Currently Reading" filter="currentlyReading" books={this.state.myReads} onBookShelfChanged={this.updateBook} />
+                            <BookShelf name="Want to Read" filter="wantToRead" books={this.state.myReads} onBookShelfChanged={this.updateBook} />
+                            <BookShelf name="Read" filter="read" books={this.state.myReads} onBookShelfChanged={this.updateBook} />
                         </div>
                     )}
                 </div>

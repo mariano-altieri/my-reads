@@ -1,74 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import BooksGrid from './BooksGrid.js';
-import * as BooksAPI from '../utils/BooksAPI';
+import BookStore from './BookStore';
 
-class Search extends Component {
-    state = {
-        loading: false,
-        updating: false,
-        books: [],
-        myBooks: [],
-        query: '',
-        maxResults: 10 // TODO: find out why maxResults isn't working
-    }
-
-    updateQuery = (query) => {
-        this.setState({ query: query.replace(/^\s+/, '') });
-    }
-
+class Search extends BookStore {
     handleSubmit = (e) => {
         e.preventDefault();
         this.searchBooks();
     }
 
     componentDidMount() {
-        this.fetchMyBooks();
-    }
-
-    fetchMyBooks = () => {
-        BooksAPI.getAll().then( myBooks => this.setState({ myBooks }));
-    }
-
-    searchBooks = () => {
-        const { query, maxResults } = this.state;
-
-        if (!query) return;
-
-        this.setState({ loading: true });
-
-        BooksAPI.search(query, maxResults).then( books => {
-            let searchedBooks = books.error ? [] : books;
-
-            /*
-             * Mapping the search results with our own Reads to
-             * set the proper Book Shelf status
-             */
-            searchedBooks = searchedBooks.map( sBook => {
-                return this.state.myBooks.filter( myBook => myBook.id === sBook.id)[0] || sBook;
-            });
-
-            this.setState({
-                books: searchedBooks,
-                loading: false
-            });
-        });
-    }
-
-    updateBook = (book, shelf) => {
-        this.setState({ updating: true });
-
-        BooksAPI.update(book, shelf).then( () => {
-            this.setState({
-                updating: false,
-                books: this.state.books.map( b => {
-                    return (b.id !== book.id) ? b : { ...book, shelf };
-                })
-            });
-        });
+        this.fetchMyReads(false);
     }
 
     render() {
+        const searchedBooks = this.state.searchedBooks;
+
         return (
             <div className="search-books">
                 <div className="search-books-bar">
@@ -90,14 +37,14 @@ class Search extends Component {
                     ) : (
                         <div>
                             {this.state.updating && (<p>Updating...</p>)}
-                            {!this.state.books.length ? (
+
+                            {!searchedBooks.length ? (
                                 <p>No results.</p>
                             ) : (
-                                <BooksGrid filter='all' books={this.state.books} onBookShelfChanged={this.updateBook} />
+                                <BooksGrid filter='all' books={searchedBooks} onBookShelfChanged={this.updateBook} />
                             )}
                         </div>
                     )}
-
                 </div>
             </div>
         );
