@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { debounce } from 'throttle-debounce';
+
 import BooksGrid from './BooksGrid.js';
 
 class Search extends Component {
     state = {
         query: '',
         maxResults: 10
+    }
+
+    static propTypes = {
+        myReads: PropTypes.array.isRequired,
+        searchedBooks: PropTypes.array.isRequired,
+        fetchMyReads: PropTypes.func.isRequired,
+        searchBooks: PropTypes.func.isRequired,
+        updateBook: PropTypes.func.isRequired
     }
 
     handleChange = (e) => {

@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Bookshelf from './Bookshelf';
+import PropTypes from 'prop-types';
 
+import Bookshelf from './Bookshelf';
 import SHELVES from '../constants/Shelves';
 
 class Main extends Component {
+    static propTypes = {
+        myReads: PropTypes.array.isRequired,
+        fetchMyReads: PropTypes.func.isRequired,
+        updateBook: PropTypes.func.isRequired
+    }
+
     componentDidMount() {
         this.props.fetchMyReads();
     }

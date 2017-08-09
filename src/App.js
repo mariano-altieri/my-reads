@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import './App.css';
 
+import './App.css';
 import * as BooksAPI from './utils/BooksAPI';
 import MyReads from './components/MyReads';
 import Search from './components/Search';
@@ -71,8 +71,6 @@ class BooksApp extends Component {
                         myReads={this.state.myReads}
                         fetchMyReads={this.fetchMyReads}
                         updateBook={this.updateBook}
-                        loading={this.state.loading}
-                        updating={this.state.updating}
                     />
                 )} />
                 <Route path="/search" render={() => (
@@ -82,8 +80,6 @@ class BooksApp extends Component {
                         fetchMyReads={this.fetchMyReads}
                         updateBook={this.updateBook}
                         searchBooks={this.searchBooks}
-                        loading={this.state.loading}
-                        updating={this.state.updating}
                     />
                 )} />
             </div>

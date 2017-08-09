@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import SHELVES from '../constants/Shelves';
 
 class BookState extends Component {
+    static propTypes = {
+        book: PropTypes.object.isRequired,
+        onBookShelfChanged: PropTypes.func.isRequired
+    }
+
     handleChange = (e) => {
-        if (typeof this.props.onBookShelfChanged === 'function') {
-            this.props.onBookShelfChanged(this.props.book, e.target.value);
-        }
+        this.props.onBookShelfChanged(this.props.book, e.target.value);
     }
 
      render() {
@@ -24,6 +29,11 @@ class BookState extends Component {
 }
 
 class Book extends Component {
+    static propTypes = {
+        data: PropTypes.object.isRequired,
+        onBookShelfChanged: PropTypes.func.isRequired
+    }
+
     render() {
         const data = this.props.data;
         const { title, authors = [], imageLinks } = data;
