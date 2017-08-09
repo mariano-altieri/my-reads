@@ -8,14 +8,12 @@ class BooksGrid extends Component {
     }
 
     render() {
-        const { loading, filter, books, onBookShelfChanged } = this.props;
+        const { filter, books, onBookShelfChanged } = this.props;
         const filteredBooks = this.filterBooksByShelf(filter, books);
 
         return (
             <div>
-                { loading ? (
-                    <p>Loading books...</p>
-                ) : !filteredBooks.length ? (
+                { !filteredBooks.length ? (
                     <p>No results!</p>
                 ) : (
                     <ol className="books-grid">

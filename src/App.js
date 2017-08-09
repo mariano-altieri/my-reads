@@ -5,6 +5,7 @@ import './App.css';
 import * as BooksAPI from './utils/BooksAPI';
 import MyReads from './components/MyReads';
 import Search from './components/Search';
+import Feedback from './components/Feedback';
 
 class BooksApp extends Component {
     state = {
@@ -64,6 +65,7 @@ class BooksApp extends Component {
     render() {
         return (
             <div className="app">
+                <Feedback loading={this.state.loading} updating={this.state.updating} />
                 <Route path="/" exact render={() => (
                     <MyReads
                         myReads={this.state.myReads}

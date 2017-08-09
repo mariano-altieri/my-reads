@@ -37,7 +37,7 @@ class Search extends Component {
     }
 
     render() {
-        const { loading, updating, searchedBooks, updateBook } = this.props;
+        const { searchedBooks, updateBook } = this.props;
         const { query } = this.state;
 
         return (
@@ -55,8 +55,7 @@ class Search extends Component {
                     </div>
                 </div>
                 <div className="search-books-results">
-                    {updating && (<p>Updating...</p>)}
-                    <BooksGrid filter='all' loading={loading} books={searchedBooks} onBookShelfChanged={updateBook} />
+                    <BooksGrid filter='all' books={searchedBooks} onBookShelfChanged={updateBook} />
                 </div>
             </div>
         );

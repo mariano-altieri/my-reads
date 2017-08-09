@@ -10,7 +10,7 @@ class Main extends Component {
     }
 
     render() {
-        const { loading, updating, myReads, updateBook } = this.props;
+        const { myReads, updateBook } = this.props;
 
         const bookshelves = SHELVES.map((cat, index) => (
             <Bookshelf
@@ -19,7 +19,6 @@ class Main extends Component {
                 filter={cat.value}
                 books={myReads}
                 onBookShelfChanged={updateBook}
-                loading={loading}
             />
         ));
 
@@ -29,7 +28,6 @@ class Main extends Component {
                     <h1>MyReads</h1>
                 </div>
                 <div className="list-books-content">
-                    {updating && (<p>Updating...</p>)}
                     {bookshelves}
                 </div>
                   <div className="open-search">
